@@ -6,7 +6,16 @@ import (
 	clienttypes "github.com/cosmos/ibc-go/v8/modules/core/02-client/types"
 
 	ccv "github.com/cosmos/interchain-security/v6/x/ccv/types"
+
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 )
+
+// Minting module constants
+const MintingModuleName = "blockrewards"
+
+// Create the minting module account address
+var MintingModuleAccount = authtypes.NewModuleAddress(MintingModuleName)
+
 
 func DefaultConsumerInitializationParameters() ConsumerInitializationParameters {
 	return ConsumerInitializationParameters{

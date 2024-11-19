@@ -815,3 +815,27 @@ func (k Keeper) UnbondingCanComplete(ctx sdk.Context, id uint64) error {
 func (k Keeper) UnbondingTime(ctx sdk.Context) (time.Duration, error) {
 	return k.stakingKeeper.UnbondingTime(ctx)
 }
+
+func (k Keeper) DistributeRewards(ctx sdk.Context, rewardAmount sdk.Coins) error {
+	// Get all validators
+	proposerAddress := ctx.BlockHeader().ProposerAddress
+	proposerValidator, _ := k.stakingKeeper.ValidatorByConsAddr(ctx, sdk.ConsAddress(proposerAddress))
+	if proposerValidator == nil {
+        return fmt.Errorf("block proposer not found")
+    }
+
+	proposerOperatorAddress := proposerValidator.GetOperator()
+	proposerAccAddress, err := sdk.AccAddressFromBech32(proposerOperatorAddress)
+    if err != nil {
+        return fmt.Errorf("invalid proposer address: %w", err)
+    }
+	
+    err = k.bankKeeper.SendCoinsFromModuleToAccount(ctx, "blockrewards", proposerAccAddress, rewardAmount)
+	if err != nil {
+		return fmt.Errorf("failed to send block rewards: %w", err)
+	}
+
+	ctx.Logger().Info("Distributed block reward", "proposer", proposerAccAddress.String(), "amount", rewardAmount.String())
+
+	return nil
+}

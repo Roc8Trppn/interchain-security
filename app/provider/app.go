@@ -169,6 +169,8 @@ var (
 		govtypes.ModuleName:               {authtypes.Burner},
 		ibctransfertypes.ModuleName:       {authtypes.Minter, authtypes.Burner},
 		providertypes.ConsumerRewardsPool: nil,
+			// Add the minting module account
+		providertypes.MintingModuleName:   {authtypes.Minter},
 	}
 )
 
@@ -841,6 +843,10 @@ func (app *App) InitChainer(ctx sdk.Context, req *abci.RequestInitChain) (*abci.
 	}
 
 	app.UpgradeKeeper.SetModuleVersionMap(ctx, app.MM.GetVersionMap())
+
+	// Initialize the blockrewards module account
+    blockRewardsModuleAccount := authtypes.NewEmptyModuleAccount("blockrewards", authtypes.Minter)
+    app.AccountKeeper.SetModuleAccount(ctx, blockRewardsModuleAccount)
 
 	return app.MM.InitGenesis(ctx, app.appCodec, genesisState)
 }

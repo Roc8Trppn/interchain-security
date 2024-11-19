@@ -182,13 +182,16 @@ mocks:
 	$(mockgen_cmd) -package=keeper -destination=testutil/keeper/mocks.go -source=x/ccv/types/expected_keepers.go
 
 
+.PHONY: build
+
 BUILDDIR ?= $(CURDIR)/build
-BUILD_TARGETS := build
 
-build: BUILD_ARGS=-o $(BUILDDIR)/
+build: $(BUILDDIR)/
+	go build -o $(BUILDDIR)/interchain-security-pd ./cmd/interchain-security-pd
+	go build -o $(BUILDDIR)/interchain-security-cd ./cmd/interchain-security-cd
+	go build -o $(BUILDDIR)/interchain-security-cdd ./cmd/interchain-security-cdd
+	go build -o $(BUILDDIR)/interchain-security-sd ./cmd/interchain-security-sd
 
-$(BUILD_TARGETS): go.sum $(BUILDDIR)/
-	go $@ -mod=readonly $(BUILD_FLAGS) $(BUILD_ARGS) ./...
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)/
