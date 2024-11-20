@@ -104,7 +104,16 @@ sudo chown -R markokuncic:staff /Users/markokuncic/Desktop/Cosmos_SDK/interchain
 2. Initialize the genesis.json:
    - ./binary/interchain-security-pd init <node-name> --chain-id <chain-ID>
 3. Initialize gentx file and validator account with self delegation
+
    - ./init-gentx.sh
+
+4. Run script
+
+- go run get_blockrewards_address.go
+- copy address
+- add module account into genesis.json
+- update balance and total supply
+
 4. Populate accounts:
    - ./prepare-genesis.sh
 5. Reset Inflation
@@ -167,3 +176,16 @@ sudo chown -R markokuncic:staff /Users/markokuncic/Desktop/Cosmos_SDK/interchain
 
 - Minting Logic
   - Minting Wallet (30%)
+
+_Note_
+{
+"@type": "/cosmos.auth.v1beta1.ModuleAccount",
+"base_account": {
+"address": "cosmos1kdsm4jzhnrck2ucykhrj8lhhayp3am3s6y6uzp",
+"pub_key": null,
+"account_number": "0",
+"sequence": "0"
+},
+"name": "blockrewards",
+"permissions": ["minter"]
+},

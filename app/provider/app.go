@@ -114,6 +114,9 @@ import (
 	no_valupdates_genutil "github.com/Roc8Trppn/interchain-security/v6/x/ccv/no_valupdates_genutil"
 	no_valupdates_staking "github.com/Roc8Trppn/interchain-security/v6/x/ccv/no_valupdates_staking"
 	ibcprovider "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider"
+	blockrewardsmodule "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/blockrewards"
+	blockrewardskeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/blockrewards/keeper"
+	blockrewardsmoduletypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/blockrewards/types"
 	ibcproviderkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/keeper"
 	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
 )
@@ -202,6 +205,7 @@ type App struct { // nolint: golint
 	StakingKeeper    *stakingkeeper.Keeper
 	SlashingKeeper   slashingkeeper.Keeper
 	MintKeeper       mintkeeper.Keeper
+	BlockRewardsKeeper 	 blockrewardskeeper.Keeper
 
 	// NOTE the distribution keeper should either be removed
 	// from consumer chain or set to use an independent
@@ -394,6 +398,11 @@ func New(
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 		app.AccountKeeper.AddressCodec(),
 	)
+	app.BlockRewardsKeeper = blockrewardskeeper.NewKeeper(
+    	app.BankKeeper,
+        *app.StakingKeeper,
+    	app.AccountKeeper,
+	)
 
 	// get skipUpgradeHeights from the app options
 	skipUpgradeHeights := map[int64]bool{}
@@ -549,6 +558,7 @@ func New(
 		auth.NewAppModule(appCodec, app.AccountKeeper, nil, app.GetSubspace(authtypes.ModuleName)),
 		vesting.NewAppModule(app.AccountKeeper, app.BankKeeper),
 		bank.NewAppModule(appCodec, app.BankKeeper, app.AccountKeeper, app.GetSubspace(banktypes.ModuleName)),
+		blockrewardsmodule.NewAppModule(app.BlockRewardsKeeper),
 		consensus.NewAppModule(appCodec, app.ConsensusParamsKeeper),
 		capability.NewAppModule(appCodec, *app.CapabilityKeeper, false),
 		crisis.NewAppModule(&app.CrisisKeeper, skipGenesisInvariants, app.GetSubspace(crisistypes.ModuleName)),
@@ -644,7 +654,10 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		providertypes.ModuleName,
+		blockrewardsmoduletypes.ModuleName,
 	)
+	logger.Info("blockrewards module registered for EndBlock")
+
 
 	// NOTE: The genutils module must occur after staking so that pools are
 	// properly initialized with tokens from genesis accounts.
