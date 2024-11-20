@@ -18,7 +18,7 @@ import (
 	tmtypes "github.com/cometbft/cometbft/proto/tendermint/types"
 	cmttypes "github.com/cometbft/cometbft/types"
 
-	ccvtypes "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	ccvtypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 const (

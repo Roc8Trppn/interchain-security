@@ -8,7 +8,7 @@ The democracy modules comprise `x/ccv/democracy/staking` and `x/ccv/democracy/di
 
 The modules are plug-and-play and only require small wiring changes to be enabled.
 
-For a full integration check the `consumer-democracy` [example app](https://github.com/cosmos/interchain-security/blob/main/app/consumer-democracy/app.go).
+For a full integration check the `consumer-democracy` [example app](https://github.com/Roc8Trppn/interchain-security/blob/main/app/consumer-democracy/app.go).
 
 ## Staking
 
@@ -23,7 +23,7 @@ The validator set coming from the provider chain does not need to participate in
 
 #### Governators (aka. Governors)
 
-Validators registered with the `x/ccv/democracy/staking` module become __Governators__.
+Validators registered with the `x/ccv/democracy/staking` module become **Governators**.
 Unlike validators, governators are not required to run any chain infrastructure since they are not signing any blocks.
 However, governators retain a subset of the validator properties:
 
@@ -101,7 +101,7 @@ You **do not need to remove** the cosmos-sdk `StakingKeeper` from your wiring.
 ```diff
 import (
     ...
-+   ccvstaking "github.com/cosmos/interchain-security/v4/x/ccv/democracy/staking"
++   ccvstaking "github.com/Roc8Trppn/interchain-security/v4/x/ccv/democracy/staking"
 )
 
 var (
@@ -222,7 +222,7 @@ The `x/ccv/democracy/distribution` module allows the consumer chain to send rewa
 
 ### How it works
 
-First, a percentage of the block rewards is sent to the provider chain, where is distributed only to opted-in validators and their delegators. 
+First, a percentage of the block rewards is sent to the provider chain, where is distributed only to opted-in validators and their delegators.
 Second, the remaining rewards get distributed to the consumer chain's governators and their delegators.
 The percentage that is sent to the provider chain corresponds to `1 - ConsumerRedistributionFraction`.
 For example, `ConsumerRedistributionFraction = "0.75"` means that the consumer chain retains 75% of the rewards, while 25% gets sent to the provider chain
@@ -238,7 +238,7 @@ import (
     distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
     sdkdistr "github.com/cosmos/cosmos-sdk/x/distribution"
 
-+   ccvdistr "github.com/cosmos/interchain-security/v4/x/ccv/democracy/distribution"
++   ccvdistr "github.com/Roc8Trppn/interchain-security/v4/x/ccv/democracy/distribution"
 )
 
 var (

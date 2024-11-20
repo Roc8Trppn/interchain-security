@@ -30,12 +30,12 @@ import (
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	cmttypes "github.com/cometbft/cometbft/types"
 
-	icstestingutils "github.com/cosmos/interchain-security/v6/testutil/ibc_testing"
-	"github.com/cosmos/interchain-security/v6/testutil/integration"
-	simibc "github.com/cosmos/interchain-security/v6/testutil/simibc"
-	consumertypes "github.com/cosmos/interchain-security/v6/x/ccv/consumer/types"
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccvtypes "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	icstestingutils "github.com/Roc8Trppn/interchain-security/v6/testutil/ibc_testing"
+	"github.com/Roc8Trppn/interchain-security/v6/testutil/integration"
+	simibc "github.com/Roc8Trppn/interchain-security/v6/testutil/simibc"
+	consumertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/types"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccvtypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 const (

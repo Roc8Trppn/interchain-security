@@ -5,8 +5,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cosmos/interchain-security/v6/x/ccv/consumer/types"
-	ccvtypes "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/types"
+	ccvtypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 func (k Keeper) GetProviderInfo(ctx sdk.Context) (*types.QueryProviderInfoResponse, error) { //nolint:golint

@@ -13,8 +13,8 @@ import (
 
 	tmprotocrypto "github.com/cometbft/cometbft/proto/tendermint/crypto"
 
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccvtypes "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccvtypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // ParseConsumerKey parses the ED25519 PubKey`consumerKey` from a JSON string
@@ -27,7 +27,7 @@ func (k Keeper) ParseConsumerKey(consumerKey string) (tmprotocrypto.PublicKey, e
 	}
 
 	// Note: the correct way to decide if a key type is supported is to check the
-	// consensus params. However this functionality was disabled in https://github.com/cosmos/interchain-security/pull/916
+	// consensus params. However this functionality was disabled in https://github.com/Roc8Trppn/interchain-security/pull/916
 	// as a quick way to get ed25519 working, avoiding amino/proto-any marshalling issues.
 
 	// make sure the consumer key type is supported

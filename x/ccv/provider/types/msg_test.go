@@ -10,8 +10,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	cryptoutil "github.com/cosmos/interchain-security/v6/testutil/crypto"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
+	cryptoutil "github.com/Roc8Trppn/interchain-security/v6/testutil/crypto"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
 )
 
 func TestValidateStringField(t *testing.T) {

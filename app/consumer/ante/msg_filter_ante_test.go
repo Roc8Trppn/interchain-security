@@ -9,8 +9,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	"github.com/cosmos/interchain-security/v6/app/consumer/ante"
-	appencoding "github.com/cosmos/interchain-security/v6/app/encoding"
+	"github.com/Roc8Trppn/interchain-security/v6/app/consumer/ante"
+	appencoding "github.com/Roc8Trppn/interchain-security/v6/app/encoding"
 )
 
 type consumerKeeper struct {

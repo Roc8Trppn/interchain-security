@@ -19,8 +19,8 @@ import (
 	abci "github.com/cometbft/cometbft/abci/types"
 	tmtypes "github.com/cometbft/cometbft/types"
 
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccv "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccv "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // PrepareConsumerForLaunch prepares to move the launch of a consumer chain from the previous spawn time to spawn time.

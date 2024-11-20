@@ -1,8 +1,10 @@
-module github.com/Roc8Trppn/interchain-security
+module github.com/Roc8Trppn/interchain-security/v6
 
 go 1.22.7
 
 toolchain go1.22.9
+
+replace github.com/cosmos/interchain-security/v6 => github.com/Roc8Trppn/interchain-security/v6 v6.0.0
 
 require (
 	cosmossdk.io/errors v1.0.1

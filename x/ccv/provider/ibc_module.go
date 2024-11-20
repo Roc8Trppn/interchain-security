@@ -15,9 +15,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/keeper"
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccv "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/keeper"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccv "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // OnChanOpenInit implements the IBCModule interface

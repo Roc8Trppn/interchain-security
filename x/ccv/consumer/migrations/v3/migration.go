@@ -6,8 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	consumertypes "github.com/cosmos/interchain-security/v6/x/ccv/consumer/types"
-	ccvtypes "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	consumertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/types"
+	ccvtypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // MigrateLegacyParams migrates the consumers module's parameters from the x/params subspace to the

@@ -3,7 +3,7 @@ package main
 import (
 	gov "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	clienttypes "github.com/cosmos/ibc-go/v8/modules/core/02-client/types"
-	e2e "github.com/cosmos/interchain-security/v6/tests/e2e/testlib"
+	e2e "github.com/Roc8Trppn/interchain-security/v6/tests/e2e/testlib"
 )
 
 // stepsInactiveValidatorsOnConsumer tests situations where validators that are *not* in the active set on the

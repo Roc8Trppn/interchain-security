@@ -14,11 +14,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	"github.com/cosmos/interchain-security/v6/testutil/crypto"
-	testkeeper "github.com/cosmos/interchain-security/v6/testutil/keeper"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccv "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	"github.com/Roc8Trppn/interchain-security/v6/testutil/crypto"
+	testkeeper "github.com/Roc8Trppn/interchain-security/v6/testutil/keeper"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccv "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // Tests the provider's InitGenesis implementation against the spec.

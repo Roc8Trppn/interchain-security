@@ -7,7 +7,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/types/module"
 
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
 )
 
 // Simulation parameter constants

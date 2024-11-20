@@ -10,9 +10,9 @@ import (
 	tmencoding "github.com/cometbft/cometbft/crypto/encoding"
 	tmprotocrypto "github.com/cometbft/cometbft/proto/tendermint/crypto"
 
-	providerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/provider/keeper"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccv "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	providerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/keeper"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccv "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // TestKeyAssignment tests key assignments relayed from the provider chain to the consumer chain at different times in the protocol lifecycle.

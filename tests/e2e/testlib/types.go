@@ -8,7 +8,7 @@ import (
 	"time"
 
 	clienttypes "github.com/cosmos/ibc-go/v8/modules/core/02-client/types"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
 )
 
 type (

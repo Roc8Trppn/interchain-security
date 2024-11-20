@@ -7,8 +7,8 @@ import (
 	"github.com/cosmos/ibc-go/v8/modules/core/02-client/types"
 	"github.com/stretchr/testify/require"
 
-	testkeeper "github.com/cosmos/interchain-security/v6/testutil/keeper"
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
+	testkeeper "github.com/Roc8Trppn/interchain-security/v6/testutil/keeper"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
 )
 
 // TestConsumerId tests setters and getters of consumer id (i.e., `FetchAndIncrementConsumerId` and `GetConsumerId`)

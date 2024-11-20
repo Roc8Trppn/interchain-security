@@ -23,9 +23,9 @@ import (
 	tmencoding "github.com/cometbft/cometbft/crypto/encoding"
 	cmttypes "github.com/cometbft/cometbft/types"
 
-	"github.com/cosmos/interchain-security/v6/testutil/integration"
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	"github.com/cosmos/interchain-security/v6/x/ccv/types"
+	"github.com/Roc8Trppn/interchain-security/v6/testutil/integration"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 const verbose = false

@@ -13,12 +13,12 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 
-	icstestingutils "github.com/cosmos/interchain-security/v6/testutil/integration"
-	consumerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/consumer/keeper"
-	consumertypes "github.com/cosmos/interchain-security/v6/x/ccv/consumer/types"
-	providerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/provider/keeper"
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccv "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	icstestingutils "github.com/Roc8Trppn/interchain-security/v6/testutil/integration"
+	consumerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/keeper"
+	consumertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/types"
+	providerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/keeper"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccv "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // TestRewardsDistribution tests the distribution of rewards from the consumer chain to the provider chain.

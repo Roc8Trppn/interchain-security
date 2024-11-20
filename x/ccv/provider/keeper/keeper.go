@@ -26,9 +26,9 @@ import (
 	govkeeper "github.com/cosmos/cosmos-sdk/x/gov/keeper"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 
-	consumertypes "github.com/cosmos/interchain-security/v6/x/ccv/consumer/types"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccv "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	consumertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/types"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccv "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // Keeper defines the Cross-Chain Validation Provider Keeper
@@ -504,7 +504,7 @@ func (k Keeper) DeleteValsetUpdateBlockHeight(ctx sdk.Context, valsetUpdateId ui
 // SetSlashAcks sets the slash acks under the given chain ID
 //
 // TODO: SlashAcks should be persisted as a list of ConsumerConsAddr types, not strings.
-// See https://github.com/cosmos/interchain-security/issues/728
+// See https://github.com/Roc8Trppn/interchain-security/issues/728
 func (k Keeper) SetSlashAcks(ctx sdk.Context, consumerId string, acks []string) {
 	store := ctx.KVStore(k.storeKey)
 
@@ -523,7 +523,7 @@ func (k Keeper) SetSlashAcks(ctx sdk.Context, consumerId string, acks []string) 
 // GetSlashAcks returns the slash acks stored under the given consumer id
 //
 // TODO: SlashAcks should be persisted as a list of ConsumerConsAddr types, not strings.
-// See https://github.com/cosmos/interchain-security/issues/728
+// See https://github.com/Roc8Trppn/interchain-security/issues/728
 func (k Keeper) GetSlashAcks(ctx sdk.Context, consumerId string) []string {
 	store := ctx.KVStore(k.storeKey)
 	bz := store.Get(types.SlashAcksKey(consumerId))
@@ -559,7 +559,7 @@ func (k Keeper) DeleteSlashAcks(ctx sdk.Context, consumerId string) {
 
 // AppendSlashAck appends the given slash ack to the given consumer id slash acks in store
 func (k Keeper) AppendSlashAck(ctx sdk.Context, consumerId,
-	ack string, // TODO: consumer cons addr should be accepted here, see https://github.com/cosmos/interchain-security/issues/728
+	ack string, // TODO: consumer cons addr should be accepted here, see https://github.com/Roc8Trppn/interchain-security/issues/728
 ) {
 	acks := k.GetSlashAcks(ctx, consumerId)
 	acks = append(acks, ack)
@@ -836,6 +836,6 @@ func (k Keeper) DistributeRewards(ctx sdk.Context, rewardAmount sdk.Coins) error
 	}
 
 	ctx.Logger().Info("Distributed block reward", "proposer", proposerAccAddress.String(), "amount", rewardAmount.String())
-	
+
 	return nil
 }

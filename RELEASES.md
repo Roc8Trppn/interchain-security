@@ -18,13 +18,13 @@ Interchain Security (ICS) follows [semantic versioning](https://semver.org), but
 
 ### Breaking Changes
 
-A change is considered to be ***library API breaking*** if it modifies the integration of ICS on either consumer or provider chains (i.e., it changes the way ICS is used as a library).
+A change is considered to be **_library API breaking_** if it modifies the integration of ICS on either consumer or provider chains (i.e., it changes the way ICS is used as a library).
 Note that bumping the major version of [Cosmos SDK](https://github.com/cosmos/cosmos-sdk) or [IBC](https://github.com/cosmos/ibc-go) will be considered as a library API breaking change.
 
-A change is considered to be ***state-machine breaking*** if it requires a coordinated upgrade and/or state migration for either consumer or provider chains in order to preserve [state compatibility](./STATE-COMPATIBILITY.md).
+A change is considered to be **_state-machine breaking_** if it requires a coordinated upgrade and/or state migration for either consumer or provider chains in order to preserve [state compatibility](./STATE-COMPATIBILITY.md).
 Note that when bumping the dependencies of [Cosmos SDK](https://github.com/cosmos/cosmos-sdk) and [IBC](https://github.com/cosmos/ibc-go) we will only treat patch releases as non state-machine breaking.
 
-A change is considered to be ***node API breaking*** if it modifies the API provided by a node of either consumer or provider chains.
+A change is considered to be **_node API breaking_** if it modifies the API provided by a node of either consumer or provider chains.
 This includes events, queries, CLI interfaces.
 
 ## Release Cycle
@@ -32,7 +32,7 @@ This includes events, queries, CLI interfaces.
 ICS follows a traditional release cycle involving release candidates (RCs) releases before finalizing a new version.
 The stable release guarantees do not go into effect until a final release is performed.
 
-❗***It is never advisable to use a non-final release in production.***
+❗**_It is never advisable to use a non-final release in production._**
 
 Final releases should contain little to no changes in comparison to the latest RC.
 
@@ -68,21 +68,21 @@ All missing minor release versions have been discontinued.
 **Note**: Gaia versions on SDK 0.47 (i.e., `v15.0.x` -- `v18.1.x`) use a fork of Cosmos SDK (i.e., `v0.47.x-ics-lsm`) that contains the Liquid Staking Module (LSM).
 This means that these versions of Gaia require a fork of ICS.
 This fork is maintained by the development team and released using the `-lsm` prefix.
-Starting with Gaia `v19.0.x` (that uses SDK 0.50), the fork of ICS is no longer needed. 
+Starting with Gaia `v19.0.x` (that uses SDK 0.50), the fork of ICS is no longer needed.
 
 ## Version Matrix
 
 Versions of Golang, IBC, Cosmos SDK and CometBFT used by ICS in the currently active releases:
 
-| ICS                                                                                 | Golang | IBC    | Cosmos SDK       | CometBFT | Note                                |
-| ----------------------------------------------------------------------------------- | ------ | ------ | ---------------- | -------- | ----------------------------------- |
-| [v4.0.0](https://github.com/cosmos/interchain-security/releases/tag/v4.0.0)         | 1.21   | v7.3.1 | v0.47.7          | v0.37.4  |                                     |
-| [v4.3.1](https://github.com/cosmos/interchain-security/releases/tag/v4.3.1)         | 1.21   | v7.6.0 | v0.47.12         | v0.37.6  |                                     |
-| [v4.3.1-lsm](https://github.com/cosmos/interchain-security/releases/tag/v4.3.1-lsm) | 1.21   | v7.6.0 | v0.47.16-ics-lsm | v0.37.6  | Provider only (Cosmos Hub specific) |
-| [v4.4.0](https://github.com/cosmos/interchain-security/releases/tag/v4.4.0)         | 1.21   | v7.6.0 | v0.47.12         | v0.37.6  |                                     |
-| [v5.0.0](https://github.com/cosmos/interchain-security/releases/tag/v5.0.0)         | 1.21   | v8.1.0 | v0.50.4          | v0.38.5  |                                     |
-| [v5.2.0](https://github.com/cosmos/interchain-security/releases/tag/v5.2.0)         | 1.22   | v8.3.2 | v0.50.8          | v0.38.9  |                                     |
-| [v6.1.0](https://github.com/cosmos/interchain-security/releases/tag/v6.1.0)         | 1.22   | v8.5.0 | v0.50.9          | v0.38.11 |                                     |
+| ICS                                                                                    | Golang | IBC    | Cosmos SDK       | CometBFT | Note                                |
+| -------------------------------------------------------------------------------------- | ------ | ------ | ---------------- | -------- | ----------------------------------- |
+| [v4.0.0](https://github.com/Roc8Trppn/interchain-security/releases/tag/v4.0.0)         | 1.21   | v7.3.1 | v0.47.7          | v0.37.4  |                                     |
+| [v4.3.1](https://github.com/Roc8Trppn/interchain-security/releases/tag/v4.3.1)         | 1.21   | v7.6.0 | v0.47.12         | v0.37.6  |                                     |
+| [v4.3.1-lsm](https://github.com/Roc8Trppn/interchain-security/releases/tag/v4.3.1-lsm) | 1.21   | v7.6.0 | v0.47.16-ics-lsm | v0.37.6  | Provider only (Cosmos Hub specific) |
+| [v4.4.0](https://github.com/Roc8Trppn/interchain-security/releases/tag/v4.4.0)         | 1.21   | v7.6.0 | v0.47.12         | v0.37.6  |                                     |
+| [v5.0.0](https://github.com/Roc8Trppn/interchain-security/releases/tag/v5.0.0)         | 1.21   | v8.1.0 | v0.50.4          | v0.38.5  |                                     |
+| [v5.2.0](https://github.com/Roc8Trppn/interchain-security/releases/tag/v5.2.0)         | 1.22   | v8.3.2 | v0.50.8          | v0.38.9  |                                     |
+| [v6.1.0](https://github.com/Roc8Trppn/interchain-security/releases/tag/v6.1.0)         | 1.22   | v8.5.0 | v0.50.9          | v0.38.11 |                                     |
 
 **Note:** For a list of major ICS features available in the currently active releases, see [FEATURES.md](./FEATURES.md).
 

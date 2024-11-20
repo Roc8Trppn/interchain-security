@@ -24,9 +24,9 @@ import (
 
 	abci "github.com/cometbft/cometbft/abci/types"
 
-	consumerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/consumer/keeper"
-	providerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/provider/keeper"
-	ccvtypes "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	consumerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/keeper"
+	providerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/keeper"
+	ccvtypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // The interface that any provider app must implement to be compatible with ccv integration tests.

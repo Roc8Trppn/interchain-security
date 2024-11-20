@@ -2,7 +2,7 @@ package blockrewards
 
 import (
 	"cosmossdk.io/math"
-	"github.com/Roc8Trppn/interchain-security/x/ccv/provider/blockrewards/keeper"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/blockrewards/keeper"
 	abci "github.com/cometbft/cometbft/abci/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

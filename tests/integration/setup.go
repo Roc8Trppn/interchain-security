@@ -15,10 +15,10 @@ import (
 
 	abci "github.com/cometbft/cometbft/abci/types"
 
-	icstestingutils "github.com/cosmos/interchain-security/v6/testutil/ibc_testing"
-	testutil "github.com/cosmos/interchain-security/v6/testutil/integration"
-	consumertypes "github.com/cosmos/interchain-security/v6/x/ccv/consumer/types"
-	ccv "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	icstestingutils "github.com/Roc8Trppn/interchain-security/v6/testutil/ibc_testing"
+	testutil "github.com/Roc8Trppn/interchain-security/v6/testutil/integration"
+	consumertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/types"
+	ccv "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // Callback for instantiating a new coordinator with a provider test chains
@@ -312,7 +312,7 @@ func (suite *CCVTestSuite) ExecuteCCVChannelHandshake(path *ibctesting.Path) {
 }
 
 // TODO: Make SetupTransferChannel functional for multiple consumers by pattern matching SetupCCVChannel.
-// See: https://github.com/cosmos/interchain-security/issues/506
+// See: https://github.com/Roc8Trppn/interchain-security/issues/506
 // SetupTransferChannel setup the transfer channel of the first consumer chain among multiple
 func (suite *CCVTestSuite) SetupTransferChannel() {
 	suite.setupTransferChannel(

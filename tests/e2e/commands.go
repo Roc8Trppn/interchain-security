@@ -16,8 +16,8 @@ import (
 	"github.com/tidwall/gjson"
 	"gopkg.in/yaml.v2"
 
-	e2e "github.com/cosmos/interchain-security/v6/tests/e2e/testlib"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
+	e2e "github.com/Roc8Trppn/interchain-security/v6/tests/e2e/testlib"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
 )
 
 // Commands contains a collection of commands which can executed

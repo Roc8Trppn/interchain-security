@@ -7,7 +7,7 @@ import (
 	"log"
 	"time"
 
-	e2e "github.com/cosmos/interchain-security/v6/tests/e2e/testlib"
+	e2e "github.com/Roc8Trppn/interchain-security/v6/tests/e2e/testlib"
 )
 
 // calls a simplified startup script (start-sovereign.sh) and runs a validator node

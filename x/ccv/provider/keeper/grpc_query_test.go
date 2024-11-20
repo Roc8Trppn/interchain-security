@@ -21,11 +21,11 @@ import (
 	sdkquery "github.com/cosmos/cosmos-sdk/types/query"
 	ibcexported "github.com/cosmos/ibc-go/v8/modules/core/exported"
 	ibctm "github.com/cosmos/ibc-go/v8/modules/light-clients/07-tendermint"
-	cryptotestutil "github.com/cosmos/interchain-security/v6/testutil/crypto"
-	testkeeper "github.com/cosmos/interchain-security/v6/testutil/keeper"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/keeper"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccvtypes "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	cryptotestutil "github.com/Roc8Trppn/interchain-security/v6/testutil/crypto"
+	testkeeper "github.com/Roc8Trppn/interchain-security/v6/testutil/keeper"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/keeper"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccvtypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 func TestQueryAllPairsValConsAddrByConsumer(t *testing.T) {

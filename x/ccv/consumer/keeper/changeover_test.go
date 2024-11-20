@@ -10,8 +10,8 @@ import (
 
 	abci "github.com/cometbft/cometbft/abci/types"
 
-	"github.com/cosmos/interchain-security/v6/testutil/crypto"
-	uthelpers "github.com/cosmos/interchain-security/v6/testutil/keeper"
+	"github.com/Roc8Trppn/interchain-security/v6/testutil/crypto"
+	uthelpers "github.com/Roc8Trppn/interchain-security/v6/testutil/keeper"
 )
 
 func TestChangeoverToConsumer(t *testing.T) {

@@ -17,11 +17,11 @@ import (
 	tmencoding "github.com/cometbft/cometbft/crypto/encoding"
 	tmtypes "github.com/cometbft/cometbft/types"
 
-	testutil "github.com/cosmos/interchain-security/v6/testutil/integration"
-	testkeeper "github.com/cosmos/interchain-security/v6/testutil/keeper"
-	consumerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/consumer/keeper"
-	providerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/provider/keeper"
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
+	testutil "github.com/Roc8Trppn/interchain-security/v6/testutil/integration"
+	testkeeper "github.com/Roc8Trppn/interchain-security/v6/testutil/keeper"
+	consumerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/keeper"
+	providerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/keeper"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
 )
 
 type (

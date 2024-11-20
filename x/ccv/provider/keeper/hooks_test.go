@@ -7,10 +7,10 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	cryptotestutil "github.com/cosmos/interchain-security/v6/testutil/crypto"
-	testkeeper "github.com/cosmos/interchain-security/v6/testutil/keeper"
-	providerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/provider/keeper"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
+	cryptotestutil "github.com/Roc8Trppn/interchain-security/v6/testutil/crypto"
+	testkeeper "github.com/Roc8Trppn/interchain-security/v6/testutil/keeper"
+	providerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/keeper"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
 )
 
 func TestValidatorConsensusKeyInUse(t *testing.T) {

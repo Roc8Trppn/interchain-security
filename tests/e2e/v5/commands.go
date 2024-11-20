@@ -12,8 +12,8 @@ import (
 	"time"
 
 	clienttypes "github.com/cosmos/ibc-go/v8/modules/core/02-client/types"
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccvtypes "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccvtypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 
 	"github.com/kylelemons/godebug/pretty"
 	"github.com/tidwall/gjson"
@@ -21,9 +21,9 @@ import (
 
 	gov "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 
-	e2e "github.com/cosmos/interchain-security/v6/tests/e2e/testlib"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/client"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
+	e2e "github.com/Roc8Trppn/interchain-security/v6/tests/e2e/testlib"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/client"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
 )
 
 type (

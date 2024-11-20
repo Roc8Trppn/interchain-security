@@ -108,8 +108,8 @@ import (
 	tmjson "github.com/cometbft/cometbft/libs/json"
 	tmos "github.com/cometbft/cometbft/libs/os"
 
-	appencoding "github.com/cosmos/interchain-security/v6/app/encoding"
-	testutil "github.com/cosmos/interchain-security/v6/testutil/integration"
+	appencoding "github.com/Roc8Trppn/interchain-security/v6/app/encoding"
+	testutil "github.com/Roc8Trppn/interchain-security/v6/testutil/integration"
 )
 
 const (

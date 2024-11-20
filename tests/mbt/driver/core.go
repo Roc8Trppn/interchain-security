@@ -23,13 +23,13 @@ import (
 	"github.com/cometbft/cometbft/proto/tendermint/crypto"
 	cmttypes "github.com/cometbft/cometbft/types"
 
-	appConsumer "github.com/cosmos/interchain-security/v6/app/consumer"
-	appProvider "github.com/cosmos/interchain-security/v6/app/provider"
-	simibc "github.com/cosmos/interchain-security/v6/testutil/simibc"
-	consumerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/consumer/keeper"
-	consumertypes "github.com/cosmos/interchain-security/v6/x/ccv/consumer/types"
-	providerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/provider/keeper"
-	"github.com/cosmos/interchain-security/v6/x/ccv/types"
+	appConsumer "github.com/Roc8Trppn/interchain-security/v6/app/consumer"
+	appProvider "github.com/Roc8Trppn/interchain-security/v6/app/provider"
+	simibc "github.com/Roc8Trppn/interchain-security/v6/testutil/simibc"
+	consumerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/keeper"
+	consumertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/types"
+	providerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/keeper"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // Define a new type for ChainIds to be more explicit

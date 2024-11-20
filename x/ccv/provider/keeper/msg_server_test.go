@@ -10,9 +10,9 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec/address"
 
-	testkeeper "github.com/cosmos/interchain-security/v6/testutil/keeper"
-	providerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/provider/keeper"
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
+	testkeeper "github.com/Roc8Trppn/interchain-security/v6/testutil/keeper"
+	providerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/keeper"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
 )
 
 func TestCreateConsumer(t *testing.T) {

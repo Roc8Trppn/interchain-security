@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	ccv "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	ccv "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 var _ ccv.ConsumerHooks = Keeper{}

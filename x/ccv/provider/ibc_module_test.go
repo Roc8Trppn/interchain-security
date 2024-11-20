@@ -15,11 +15,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	testkeeper "github.com/cosmos/interchain-security/v6/testutil/keeper"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider"
-	providerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/provider/keeper"
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccv "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	testkeeper "github.com/Roc8Trppn/interchain-security/v6/testutil/keeper"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider"
+	providerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/keeper"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccv "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // TestOnChanOpenInit tests the provider's OnChanOpenInit method against spec.
@@ -209,7 +209,7 @@ func TestOnChanOpenAck(t *testing.T) {
 // Spec tag: [CCV-PCF-COCONFIRM.1]
 //
 // TODO: Validate spec requirement that duplicate channels attempting to become canonical CCV channel are closed.
-// See: https://github.com/cosmos/interchain-security/issues/327
+// See: https://github.com/Roc8Trppn/interchain-security/issues/327
 func TestOnChanOpenConfirm(t *testing.T) {
 	testCases := []struct {
 		name                string

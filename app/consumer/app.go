@@ -92,11 +92,11 @@ import (
 	tmjson "github.com/cometbft/cometbft/libs/json"
 	tmos "github.com/cometbft/cometbft/libs/os"
 
-	appencoding "github.com/cosmos/interchain-security/v6/app/encoding"
-	testutil "github.com/cosmos/interchain-security/v6/testutil/integration"
-	ibcconsumer "github.com/cosmos/interchain-security/v6/x/ccv/consumer"
-	ibcconsumerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/consumer/keeper"
-	ibcconsumertypes "github.com/cosmos/interchain-security/v6/x/ccv/consumer/types"
+	appencoding "github.com/Roc8Trppn/interchain-security/v6/app/encoding"
+	testutil "github.com/Roc8Trppn/interchain-security/v6/testutil/integration"
+	ibcconsumer "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer"
+	ibcconsumerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/keeper"
+	ibcconsumertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/types"
 )
 
 const (

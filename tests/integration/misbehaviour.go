@@ -11,8 +11,8 @@ import (
 
 	tmtypes "github.com/cometbft/cometbft/types"
 
-	testutil "github.com/cosmos/interchain-security/v6/testutil/crypto"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
+	testutil "github.com/Roc8Trppn/interchain-security/v6/testutil/crypto"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
 )
 
 // TestHandleConsumerMisbehaviour tests the handling of consumer misbehavior.

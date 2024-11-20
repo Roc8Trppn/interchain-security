@@ -22,10 +22,10 @@ import (
 	abci "github.com/cometbft/cometbft/abci/types"
 	tmtypes "github.com/cometbft/cometbft/types"
 
-	icstestingutils "github.com/cosmos/interchain-security/v6/testutil/ibc_testing"
-	testutil "github.com/cosmos/interchain-security/v6/testutil/integration"
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccv "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	icstestingutils "github.com/Roc8Trppn/interchain-security/v6/testutil/ibc_testing"
+	testutil "github.com/Roc8Trppn/interchain-security/v6/testutil/integration"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccv "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 // ChainType defines the type of chain (either provider or consumer)

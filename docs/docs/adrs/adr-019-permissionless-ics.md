@@ -2,17 +2,20 @@
 sidebar_position: 20
 title: Permissionless ICS
 ---
+
 # ADR 019: Permissionless Interchain Security
 
 ## Changelog
-* 27th of June, 2024: Initial draft
-* 12th of September, 2024: Updated to take into account message changes, etc.
+
+- 27th of June, 2024: Initial draft
+- 12th of September, 2024: Updated to take into account message changes, etc.
 
 ## Status
 
 Accepted
 
 ## Context
+
 Currently, a consumer chain can join _Interchain Security_ (ICS) only through a governance proposal.
 A governance proposal was needed before the introduction of [Partial Set Security](../features/partial-set-security.md) (PSS)
 because validators were required to validate a consumer chain. However, after the introduction of PSS, a consumer chain can
@@ -23,6 +26,7 @@ This ADR presents _Permissionless_ ICS, a way in which an [_Opt In_](adr-015-par
 ICS without needing a governance proposal but by simply issuing a transaction.
 
 ## Decision
+
 In Permissionless ICS, launching an Opt In chain can be done by issuing a transaction.
 Naturally, Permissionless ICS does not eliminate governance proposals, as proposals are still necessary for Top N chains.
 Nevertheless, a Top N chain can transform to an Opt In chain through a gov proposal and vice versa.
@@ -35,8 +39,6 @@ We first present the notion of an _owner_ of a consumer chain before showing the
 with the chain. The owner of an Opt In chain is the one who signed the initial transaction to register a consumer chain (more on this later).
 Naturally, an Opt In chain can change its owner at any point. The owner of a Top N chain is the account of the governance module.
 Therefore, any changes on a Top N chain have to go through governance proposals.
-
-
 
 A consumer chain can reside in five phases: i) _registered_, ii) _initialized_, iii) _launched_, iv) _stopped_, and
 v) _deleted_ phase as seen in the diagram below:
@@ -62,12 +64,13 @@ If a chain is in the initialized phase and `MsgUpdateConsumer` is issued with sp
 to the registered phase.
 
 In order to move a Top N chain to the initialized phase, we need to issue at least two `MsgUpdateConsumer` messages:
-1. one to change the owner of the chain to be the account of the governance module; 
+
+1. one to change the owner of the chain to be the account of the governance module;
 2. another as part of a governance proposal to set the Top N.
 
 **Launched phase.** In the _launched phase_ the consumer chain is running and is consuming a subset of the validator set
-of the provider. When the [`spawnTime`](https://github.com/cosmos/interchain-security/blob/v5.1.0/proto/interchain_security/ccv/provider/v1/provider.proto#L57)
-passes and [at least one validator has opted in](https://github.com/cosmos/interchain-security/blob/v5.1.0/x/ccv/provider/keeper/proposal.go#L430)
+of the provider. When the [`spawnTime`](https://github.com/Roc8Trppn/interchain-security/blob/v5.1.0/proto/interchain_security/ccv/provider/v1/provider.proto#L57)
+passes and [at least one validator has opted in](https://github.com/Roc8Trppn/interchain-security/blob/v5.1.0/x/ccv/provider/keeper/proposal.go#L430)
 the chain can launch and moves to the launched phase. Note that a Top N chain can launch if and only if the `spawnTime` has passed and
 the proposal with the `MsgUpdateConsumer` has successfully passed. While in launched phase, a consumer chain can choose to modify
 its parameters through `MsgUpdateConsumer`. Naturally, only the owner of the chain can issue `MsgUpdateConsumer`, thus
@@ -78,7 +81,7 @@ but general metadata and power-shaping parameters of the chain can still be upda
 **Stopped phase.** In the _stopped phase_ the consumer chain stops receiving `VSCPacket`s.
 A chain moves to the stopped phase, when the owner of the chain sends the `MsgRemoveConsumer` message.
 
-**Deleted phase.** In the _deleted phase_ the majority of the state in relation to this consumer chain is deleted from the provider. 
+**Deleted phase.** In the _deleted phase_ the majority of the state in relation to this consumer chain is deleted from the provider.
 A chain moves to the deleted phase after the chain has been stopped for an unbonding period.
 We keep track of the state of the consumer chain for an unbonding period, so that we are able to punish validators for misbehaviors
 that occurred before the consumer chain stopped.
@@ -88,10 +91,11 @@ This is useful for front-ends, etc.
 Note that everything described so far and everything that follows applies to consumer chains that transition from standalone chains as well.
 
 ### From `chainId` to `consumerId`
+
 A hindrance in moving to Permissionless ICS is [chain-id squatting](https://forum.cosmos.network/t/pss-permissionless-vs-premissioned-lite-opt-in-consumer-chains/12984/17).
 In a permissionless setting, anyone could issue a transaction to launch a consumer chain with a `chainId` that might already be used by some other consumer chain. This is a problem
 because in the current design the majority of stored state for a consumer chain is indexed using the `chainId` as the key (e.g.,
-see [key used to store client ids](https://github.com/cosmos/interchain-security/blob/v5.1.0/x/ccv/provider/types/keys.go#L245)).
+see [key used to store client ids](https://github.com/Roc8Trppn/interchain-security/blob/v5.1.0/x/ccv/provider/types/keys.go#L245)).
 To tackle this problem, in Permissionless ICS, we introduce the `consumerId` that defines a consumer chain and is simply
 an increasing counter (i.e., `counter`), thus we can support multiple consumer chains with the same `chainId`.
 Another way to understand this is with an analogy between consumer chains and IBC clients: Imagine having multiple IBC clients
@@ -110,53 +114,57 @@ and then asking the provider chain for the `consumerId` that corresponds to this
 the `clientId` to `consumerId` association on the provider and introduce a query to retrieve the `clientId` given the `consumerId`.
 
 #### State
+
 As a result of using `consumerId`, we have to migrate a substantial chunk of state to re-index it using `consumerId` as the key.
-Currently, in ICS we have state that is indexed by a multitude of [keys](https://github.com/cosmos/interchain-security/blob/v5.1.0/x/ccv/provider/types/keys.go#L40).
+Currently, in ICS we have state that is indexed by a multitude of [keys](https://github.com/Roc8Trppn/interchain-security/blob/v5.1.0/x/ccv/provider/types/keys.go#L40).
 In the table below, we see the ones that are associated with a `chainId` and how often state under those keys gets updated.
 Additionally, for each key, the table shows whose action can lead to the setting or deletion of the state associated with that key.
 An action can stem either from: i) a consumer chain (e.g., through a `MsgUpdateConsumer` message, an IBC packet sent over to the provider, etc.),
 ii) a provider chain (e.g., at the end of a block some action is taken), or by iii) a validator (e.g., through a `MsgAssignConsumerKey` message)
 or a combination of them.
 
-| Key                                     | Description                                                                                                                  | Who can set this?                     | Who can delete this?                  | How often are `chainId`-associated keys updated?                                                         |
-|-----------------------------------------|------------------------------------------------------------------------------------------------------------------------------|:--------------------------------:|:--------------------------------:|----------------------------------------------------------------------------------------------------------|
-| `ChainToChannelBytePrefix`              | Stores the CCV `channelID` for a specific chain                                                                              | consumer chain                   | consumer chain                   | Only once (during set up)                                                                                |
-| `ChannelToChainBytePrefix`              | Stores `chainId` for a specific channel                                                                                      | consumer chain                   | consumer chain                   | Only once (during set up)                                                                                |
-| `ChainToClientBytePrefix`               | Stores the `clientID` for a specific chain                                                                                   | consumer chain                   | consumer chain                   | Only once (during set up)                                                                                |
-| `PendingCAPBytePrefix`                  | Stores pending consumer addition proposals                                                                                   | consumer chain                   | provider chain                   | Only once (for successful proposal)                                                                      |
-| `PendingCRPBytePrefix`                  | Stores pending consumer removal proposals                                                                                    | consumer chain                   | provider chain                   | Only once (for successful proposal)                                                                      |
-| `ConsumerGenesisBytePrefix`             | Stores the consumer genesis for a specific chain                                                                             | consumer chain                   | consumer chain                   | Only once (during set up)                                                                                |
-| `SlashAcksBytePrefix`                   | Stores slash acks for a specific consumer chain                                                                              | consumer chain                   | provider chain                   | Every time we receive a Slash packet                                                                     |
-| `PendingVSCsBytePrefix`                 | Stores `VSCPacket`s for a specific consumer chain                                                                            | provider chain                   | provider chain                   | Every [epoch](https://github.com/cosmos/interchain-security/blob/v5.1.0/docs/docs/adrs/adr-014-epochs.md) |
-| `ConsumerValidatorsBytePrefix`          | Stores consumer key per validator per consumer chain                                                                         | validator                        | consumer chain                   | Every `MsgAssignConsumerKey` or `MsgOptIn`                                                               |
-| `ValidatorsByConsumerAddrBytePrefix`    | Stores consumer to provider validator address                                                                                | validator                        | consumer or provider chain       | Every `MsgAssignConsumerKey` or `MsgOptIn`                                                               |
-| `EquivocationEvidenceMinHeightBytePrefix`| Stores min height for a consumer chain                                                                                       | consumer chain                   | consumer chain                   | Only once (during set up)                                                                                |
-| `ProposedConsumerChainByteKey`          | Stores `proposalID`s for consumer chains with proposals in the voting period                                                 | not applicable for Opt In chains | not applicable for Opt In chains | Created when the proposal is submitted and deleted when the proposal's voting period ends                |
-| `ConsumerValidatorBytePrefix`           | Stores consumer validators for a specific chain                                                                              | validator                        | validator or consumer chain      | Potentially at every epoch                                                                               |
-| `OptedInBytePrefix`                     | Stores opted-in validators for a specific chain                                                                              | validator                        | validator or consumer chain      | Potentially at every block                                                                               |
-| `TopNBytePrefix`                        | Stores whether a consumer chain is Top N or not                                                                              | not applicable for Opt In chains | not applicable for Opt In chains | Every parameter update                                                                                   |
-| `ValidatorsPowerCapPrefix`              | Stores the power cap of a chain                                                                                              | consumer chain                   | consumer chain                   | Every parameter update                                                                                   |
-| `ValidatorSetCapPrefix`                 | Stores the set cap of a chain                                                                                                | consumer chain                   | consumer chain                   | Every parameter update                                                                                   |
-| `AllowlistPrefix`                       | Stores the allowlist of a chain                                                                                              | consumer chain                   | consumer chain                   | Every parameter update                                                                                   |
-| `DenylistPrefix`                        | Stores the denylist of a chain                                                                                               | consumer chain                   | consumer chain                   | Every parameter update                                                                                   |
-| `ConsumerRewardsAllocationBytePrefix`   | Stores the ICS rewards per chain                                                                                             | consumer or provider chain       | provider chain                   | Every IBC transfer packet that sends rewards to the provider                                             |
-| `ConsumerCommissionRatePrefix`          | Commission rate per chain per validator                                                                                      | validator                        | consumer chain                   | Every `MsgSetConsumerCommissionRate` message                                                             |
-| `MinimumPowerInTopNBytePrefix`          | Stores the minimum power needed to opt in for a chain                                                                        | not applicable for Opt In chains | not applicable for Opt In chains | Every epoch                                                                                              |
-| `ConsumerAddrsToPruneV2BytePrefix`      | Stores consumer addresses to be pruned (as part of `VSCMaturedPacket`s deprecation)                                          | validator or provider chain      | provider chain                   | Every `MsgAssignConsumerKey` or `MsgOptIn` and later during actual pruning                               |
+| Key                                       | Description                                                                         |        Who can set this?         |       Who can delete this?       | How often are `chainId`-associated keys updated?                                                             |
+| ----------------------------------------- | ----------------------------------------------------------------------------------- | :------------------------------: | :------------------------------: | ------------------------------------------------------------------------------------------------------------ |
+| `ChainToChannelBytePrefix`                | Stores the CCV `channelID` for a specific chain                                     |          consumer chain          |          consumer chain          | Only once (during set up)                                                                                    |
+| `ChannelToChainBytePrefix`                | Stores `chainId` for a specific channel                                             |          consumer chain          |          consumer chain          | Only once (during set up)                                                                                    |
+| `ChainToClientBytePrefix`                 | Stores the `clientID` for a specific chain                                          |          consumer chain          |          consumer chain          | Only once (during set up)                                                                                    |
+| `PendingCAPBytePrefix`                    | Stores pending consumer addition proposals                                          |          consumer chain          |          provider chain          | Only once (for successful proposal)                                                                          |
+| `PendingCRPBytePrefix`                    | Stores pending consumer removal proposals                                           |          consumer chain          |          provider chain          | Only once (for successful proposal)                                                                          |
+| `ConsumerGenesisBytePrefix`               | Stores the consumer genesis for a specific chain                                    |          consumer chain          |          consumer chain          | Only once (during set up)                                                                                    |
+| `SlashAcksBytePrefix`                     | Stores slash acks for a specific consumer chain                                     |          consumer chain          |          provider chain          | Every time we receive a Slash packet                                                                         |
+| `PendingVSCsBytePrefix`                   | Stores `VSCPacket`s for a specific consumer chain                                   |          provider chain          |          provider chain          | Every [epoch](https://github.com/Roc8Trppn/interchain-security/blob/v5.1.0/docs/docs/adrs/adr-014-epochs.md) |
+| `ConsumerValidatorsBytePrefix`            | Stores consumer key per validator per consumer chain                                |            validator             |          consumer chain          | Every `MsgAssignConsumerKey` or `MsgOptIn`                                                                   |
+| `ValidatorsByConsumerAddrBytePrefix`      | Stores consumer to provider validator address                                       |            validator             |    consumer or provider chain    | Every `MsgAssignConsumerKey` or `MsgOptIn`                                                                   |
+| `EquivocationEvidenceMinHeightBytePrefix` | Stores min height for a consumer chain                                              |          consumer chain          |          consumer chain          | Only once (during set up)                                                                                    |
+| `ProposedConsumerChainByteKey`            | Stores `proposalID`s for consumer chains with proposals in the voting period        | not applicable for Opt In chains | not applicable for Opt In chains | Created when the proposal is submitted and deleted when the proposal's voting period ends                    |
+| `ConsumerValidatorBytePrefix`             | Stores consumer validators for a specific chain                                     |            validator             |   validator or consumer chain    | Potentially at every epoch                                                                                   |
+| `OptedInBytePrefix`                       | Stores opted-in validators for a specific chain                                     |            validator             |   validator or consumer chain    | Potentially at every block                                                                                   |
+| `TopNBytePrefix`                          | Stores whether a consumer chain is Top N or not                                     | not applicable for Opt In chains | not applicable for Opt In chains | Every parameter update                                                                                       |
+| `ValidatorsPowerCapPrefix`                | Stores the power cap of a chain                                                     |          consumer chain          |          consumer chain          | Every parameter update                                                                                       |
+| `ValidatorSetCapPrefix`                   | Stores the set cap of a chain                                                       |          consumer chain          |          consumer chain          | Every parameter update                                                                                       |
+| `AllowlistPrefix`                         | Stores the allowlist of a chain                                                     |          consumer chain          |          consumer chain          | Every parameter update                                                                                       |
+| `DenylistPrefix`                          | Stores the denylist of a chain                                                      |          consumer chain          |          consumer chain          | Every parameter update                                                                                       |
+| `ConsumerRewardsAllocationBytePrefix`     | Stores the ICS rewards per chain                                                    |    consumer or provider chain    |          provider chain          | Every IBC transfer packet that sends rewards to the provider                                                 |
+| `ConsumerCommissionRatePrefix`            | Commission rate per chain per validator                                             |            validator             |          consumer chain          | Every `MsgSetConsumerCommissionRate` message                                                                 |
+| `MinimumPowerInTopNBytePrefix`            | Stores the minimum power needed to opt in for a chain                               | not applicable for Opt In chains | not applicable for Opt In chains | Every epoch                                                                                                  |
+| `ConsumerAddrsToPruneV2BytePrefix`        | Stores consumer addresses to be pruned (as part of `VSCMaturedPacket`s deprecation) |   validator or provider chain    |          provider chain          | Every `MsgAssignConsumerKey` or `MsgOptIn` and later during actual pruning                                   |
 
 Everything stored under one of the above keys is associated with a `chainId` and has to be migrated to new state under a `consumerId`.
 
 ### New Messages
-In this section, we describe the new messages (i.e., `MsgCreateConsumer`,  `MsgUpdateConsumer`, and `MsgRemoveConsumer`) that Permissionless ICS introduces.
+
+In this section, we describe the new messages (i.e., `MsgCreateConsumer`, `MsgUpdateConsumer`, and `MsgRemoveConsumer`) that Permissionless ICS introduces.
 
 #### Create a Consumer Chain
+
 We first have to create a chain before launching it, irrespectively of whether it is Top N or Opt In.
 This is done through the following message:
+
 ```protobuf
 message MsgCreateConsumer {
   option (cosmos.msg.v1.signer) = "submitter";
 
-  // Submitter address. If the message is successfully handled, the ownership of 
+  // Submitter address. If the message is successfully handled, the ownership of
   // the consumer chain will given to this address.
   string submitter = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
 
@@ -174,6 +182,7 @@ message MsgCreateConsumer {
 Note that `metadata` is a required field, while the `initialization_parameters` and `power_shaping_parameters` are optional and can later be set using `MsgUpdateConsumer`.
 
 `metadata` is of the following type:
+
 ```protobuf
 message ConsumerMetadata {
   // the name of the chain
@@ -186,6 +195,7 @@ message ConsumerMetadata {
 ```
 
 `initialization_parameters` is of the following type and if all are provided the chain is scheduled to launch:
+
 ```protobuf
 // ConsumerInitializationParameters are the parameters needed to launch a chain
 message ConsumerInitializationParameters {
@@ -247,6 +257,7 @@ message ConsumerInitializationParameters {
 ```
 
 `power_shaping_parameters` is of the following type:
+
 ```protobuf
 // PowerShapingParameters contains parameters that shape the validator set that we send to the consumer chain
 message PowerShapingParameters {
@@ -278,6 +289,7 @@ message PowerShapingParameters {
 This `MsgCreateConsumerResponse` response contains a single `string` that is the `consumerId` for this registered consumer chain
 
 #### Update a Consumer Chain
+
 We can issue a `MsgUpdateConsumer` at any point during the registered, initialized, or launched phase of a chain to
 update parameters of the consumer chain.
 
@@ -316,8 +328,8 @@ This way, we can respond to queries that ask for all the consumer chain's parame
 `MsgUpdateConsumer` can be executed multiple times for the same Opt In consumer chain during its initialized phase
 to potentially change its to-be-launched parameters (e.g., `spawnTime`).
 
-
 #### Remove (Stop) a Consumer Chain
+
 We introduce the `MsgRemoveConsumer` message so that we can stop any Opt In chain at any point in time.
 Note that all relevant state for this consumer chain remains on the provider's state before getting removed after the time
 of an unbonding period (of the provider) has passed. This is to enable potential slashing for any infraction that might have been incurred until now.
@@ -335,12 +347,13 @@ message MsgRemoveConsumer {
 ```
 
 #### Examples of Launching a Consumer Chain
+
 The figures below depict some examples of some of the phases a consumer chain resides before launching.
 
 ![Examples of a launching consumer chain](./figures/adr19_flows_of_launching_a_consumer_chain.png)
 
-
 ### Additional Modifications
+
 We need to perform multiple migrations. All state needs to be reindexed based on a `consumerId` instead of the `chainId`.
 Because we only have two consumer chains (i.e., Neutron and Stride) at the moment, this is not going to be an expensive migration even if we have some live
 consumer chains that are being voted upon. Similarly, all the messages, queries, etc. would need to be changed to operate on a `consumerId` instead of a `chainId`.
@@ -351,12 +364,14 @@ when we upgrade before we actually deprecate `ConsumerAdditionProposal`s, `MsgCo
 ## Consequences
 
 ### Positive
+
 - Easier to launch an Opt In consumer chain because no governance is required.
 
 ### Negative
+
 - Extensive migration and overhaul of existing code base (as part of API-breaking changes) that could lead to bugs.
 
-
 ## References
+
 [CHIPs Discussion phase: Permissionless ICS](https://forum.cosmos.network/t/chips-discussion-phase-permissionless-ics/13955)
 [Chain-id squatting](https://forum.cosmos.network/t/pss-permissionless-vs-premissioned-lite-opt-in-consumer-chains/12984/17)

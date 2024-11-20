@@ -18,11 +18,11 @@ import (
 
 	"github.com/cometbft/cometbft/abci/types"
 
-	appConsumer "github.com/cosmos/interchain-security/v6/app/consumer"
-	appConsumerDemocracy "github.com/cosmos/interchain-security/v6/app/consumer-democracy"
-	appProvider "github.com/cosmos/interchain-security/v6/app/provider"
-	consumertypes "github.com/cosmos/interchain-security/v6/x/ccv/consumer/types"
-	ccvtypes "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	appConsumer "github.com/Roc8Trppn/interchain-security/v6/app/consumer"
+	appConsumerDemocracy "github.com/Roc8Trppn/interchain-security/v6/app/consumer-democracy"
+	appProvider "github.com/Roc8Trppn/interchain-security/v6/app/provider"
+	consumertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/types"
+	ccvtypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 var (

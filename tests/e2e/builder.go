@@ -143,7 +143,7 @@ func getImageInfo(image string) ([]DockerImgInfo, error) {
 }
 
 // pullDockerImage pulls ICS image for a given tag from GitHub docker registry of ICS.
-// Checkout "https://github.com/cosmos/interchain-security/pkgs/container/interchain-security"
+// Checkout "https://github.com/Roc8Trppn/interchain-security/pkgs/container/interchain-security"
 // for existing tagged versions
 func pullDockerImage(tag string, targetConfig TargetConfig) (string, error) {
 	// the image path for the GH registry

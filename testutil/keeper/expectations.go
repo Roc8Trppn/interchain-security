@@ -17,8 +17,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	"github.com/cosmos/interchain-security/v6/x/ccv/types"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 //

@@ -109,13 +109,13 @@ import (
 	tmjson "github.com/cometbft/cometbft/libs/json"
 	tmos "github.com/cometbft/cometbft/libs/os"
 
-	appencoding "github.com/cosmos/interchain-security/v6/app/encoding"
-	testutil "github.com/cosmos/interchain-security/v6/testutil/integration"
-	no_valupdates_genutil "github.com/cosmos/interchain-security/v6/x/ccv/no_valupdates_genutil"
-	no_valupdates_staking "github.com/cosmos/interchain-security/v6/x/ccv/no_valupdates_staking"
-	ibcprovider "github.com/cosmos/interchain-security/v6/x/ccv/provider"
-	ibcproviderkeeper "github.com/cosmos/interchain-security/v6/x/ccv/provider/keeper"
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
+	appencoding "github.com/Roc8Trppn/interchain-security/v6/app/encoding"
+	testutil "github.com/Roc8Trppn/interchain-security/v6/testutil/integration"
+	no_valupdates_genutil "github.com/Roc8Trppn/interchain-security/v6/x/ccv/no_valupdates_genutil"
+	no_valupdates_staking "github.com/Roc8Trppn/interchain-security/v6/x/ccv/no_valupdates_staking"
+	ibcprovider "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider"
+	ibcproviderkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/keeper"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
 )
 
 const (

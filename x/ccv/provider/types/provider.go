@@ -5,7 +5,7 @@ import (
 
 	clienttypes "github.com/cosmos/ibc-go/v8/modules/core/02-client/types"
 
-	ccv "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	ccv "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 )

@@ -12,10 +12,10 @@ import (
 
 	tmtypes "github.com/cometbft/cometbft/types"
 
-	icstestingutils "github.com/cosmos/interchain-security/v6/testutil/ibc_testing"
-	"github.com/cosmos/interchain-security/v6/x/ccv/provider"
-	providertypes "github.com/cosmos/interchain-security/v6/x/ccv/provider/types"
-	ccvtypes "github.com/cosmos/interchain-security/v6/x/ccv/types"
+	icstestingutils "github.com/Roc8Trppn/interchain-security/v6/testutil/ibc_testing"
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider"
+	providertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/types"
+	ccvtypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/types"
 )
 
 const fullSlashMeterString = "1.0"

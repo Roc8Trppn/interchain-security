@@ -11,7 +11,7 @@ import (
 
 	gov "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 
-	e2e "github.com/cosmos/interchain-security/v6/tests/e2e/testlib"
+	e2e "github.com/Roc8Trppn/interchain-security/v6/tests/e2e/testlib"
 )
 
 func TestProposalUnmarshal(t *testing.T) {

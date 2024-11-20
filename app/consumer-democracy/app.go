@@ -109,13 +109,13 @@ import (
 	tmjson "github.com/cometbft/cometbft/libs/json"
 	tmos "github.com/cometbft/cometbft/libs/os"
 
-	appencoding "github.com/cosmos/interchain-security/v6/app/encoding"
-	testutil "github.com/cosmos/interchain-security/v6/testutil/integration"
-	consumer "github.com/cosmos/interchain-security/v6/x/ccv/consumer"
-	consumerkeeper "github.com/cosmos/interchain-security/v6/x/ccv/consumer/keeper"
-	consumertypes "github.com/cosmos/interchain-security/v6/x/ccv/consumer/types"
-	ccvdistr "github.com/cosmos/interchain-security/v6/x/ccv/democracy/distribution"
-	ccvstaking "github.com/cosmos/interchain-security/v6/x/ccv/democracy/staking"
+	appencoding "github.com/Roc8Trppn/interchain-security/v6/app/encoding"
+	testutil "github.com/Roc8Trppn/interchain-security/v6/testutil/integration"
+	consumer "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer"
+	consumerkeeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/keeper"
+	consumertypes "github.com/Roc8Trppn/interchain-security/v6/x/ccv/consumer/types"
+	ccvdistr "github.com/Roc8Trppn/interchain-security/v6/x/ccv/democracy/distribution"
+	ccvstaking "github.com/Roc8Trppn/interchain-security/v6/x/ccv/democracy/staking"
 )
 
 const (
