@@ -1,4 +1,4 @@
-module github.com/cosmos/interchain-security/v6
+module github.com/Roc8Trppn/interchain-security
 
 go 1.22.7
 

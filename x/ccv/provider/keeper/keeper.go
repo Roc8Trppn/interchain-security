@@ -836,6 +836,6 @@ func (k Keeper) DistributeRewards(ctx sdk.Context, rewardAmount sdk.Coins) error
 	}
 
 	ctx.Logger().Info("Distributed block reward", "proposer", proposerAccAddress.String(), "amount", rewardAmount.String())
-
+	
 	return nil
 }
