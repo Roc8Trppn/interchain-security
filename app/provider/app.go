@@ -398,11 +398,6 @@ func New(
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 		app.AccountKeeper.AddressCodec(),
 	)
-	app.BlockRewardsKeeper = blockrewardskeeper.NewKeeper(
-    	app.BankKeeper,
-        *app.StakingKeeper,
-    	app.AccountKeeper,
-	)
 
 	// get skipUpgradeHeights from the app options
 	skipUpgradeHeights := map[int64]bool{}
@@ -533,6 +528,12 @@ func New(
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 	)
 
+	app.BlockRewardsKeeper = blockrewardskeeper.NewKeeper(
+    	app.BankKeeper,
+        *app.StakingKeeper,
+    	app.AccountKeeper,
+	)
+
 	// Add an IBC middleware callback to track the consumer rewards
 	var transferStack porttypes.IBCModule
 	transferStack = transfer.NewIBCModule(app.TransferKeeper)
@@ -558,7 +559,6 @@ func New(
 		auth.NewAppModule(appCodec, app.AccountKeeper, nil, app.GetSubspace(authtypes.ModuleName)),
 		vesting.NewAppModule(app.AccountKeeper, app.BankKeeper),
 		bank.NewAppModule(appCodec, app.BankKeeper, app.AccountKeeper, app.GetSubspace(banktypes.ModuleName)),
-		blockrewardsmodule.NewAppModule(app.BlockRewardsKeeper),
 		consensus.NewAppModule(appCodec, app.ConsensusParamsKeeper),
 		capability.NewAppModule(appCodec, *app.CapabilityKeeper, false),
 		crisis.NewAppModule(&app.CrisisKeeper, skipGenesisInvariants, app.GetSubspace(crisistypes.ModuleName)),
@@ -575,6 +575,8 @@ func New(
 		params.NewAppModule(app.ParamsKeeper),
 		transfer.NewAppModule(app.TransferKeeper),
 		providerModule,
+		blockrewardsmodule.NewAppModule(app.BlockRewardsKeeper),
+
 	)
 
 	// NOTE: @Msalopek -> ModuleBasic override is happening because Tx commands don't work without it

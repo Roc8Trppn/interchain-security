@@ -1,6 +1,8 @@
 package blockrewards
 
 import (
+	"context"
+	"encoding/hex"
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -29,27 +31,41 @@ func NewKeeper(
     }
 }
 
-func (k Keeper) DistributeRewards(ctx sdk.Context, rewardAmount sdk.Coins) error {
-	// Get all validators
+func (k Keeper) DistributeRewards(sdkCtx sdk.Context, ctx context.Context, rewardAmount sdk.Coins) error {
+    sdkCtx.Logger().Info("Entering DistributeRewards")
 
-	proposerAddress := ctx.BlockHeader().ProposerAddress
-	proposerValidator, _ := k.stakingKeeper.ValidatorByConsAddr(ctx, sdk.ConsAddress(proposerAddress))
-	if proposerValidator == nil {
-        return fmt.Errorf("block proposer not found")
+    proposerAddress := sdkCtx.BlockHeader().ProposerAddress
+    if len(proposerAddress) == 0 {
+        sdkCtx.Logger().Error("Proposer address is empty")
+        return fmt.Errorf("proposer address is empty")
     }
+    sdkCtx.Logger().Info("Proposer Address", "address", hex.EncodeToString(proposerAddress))
 
-	proposerOperatorAddress := proposerValidator.GetOperator()
-	proposerAccAddress, err := sdk.AccAddressFromBech32(proposerOperatorAddress)
+    proposerValidator, _ := k.stakingKeeper.ValidatorByConsAddr(ctx, sdk.ConsAddress(proposerAddress))
+    if proposerValidator == nil {
+        sdkCtx.Logger().Error("Validator not found", "proposer_address", hex.EncodeToString(proposerAddress))
+        return fmt.Errorf("validator not found for proposer address")
+    }
+    sdkCtx.Logger().Info("Validator found", "operator_address", proposerValidator.GetOperator())
+
+    // Convert the validator operator address to an account address
+    proposerAccAddress, err := sdk.ValAddressFromBech32(proposerValidator.GetOperator())
     if err != nil {
-        return fmt.Errorf("invalid proposer address: %w", err)
+        sdkCtx.Logger().Error("Failed to decode validator operator address", "error", err)
+        return fmt.Errorf("failed to decode validator operator address: %w", err)
     }
-	
-    err = k.bankKeeper.SendCoinsFromModuleToAccount(ctx, "blockrewards", proposerAccAddress, rewardAmount)
-	if err != nil {
-		return fmt.Errorf("failed to send block rewards: %w", err)
-	}
 
-	ctx.Logger().Info("Distributed block reward", "proposer", proposerAccAddress.String(), "amount", rewardAmount.String())
+    accountAddress := sdk.AccAddress(proposerAccAddress)
+    sdkCtx.Logger().Info("Proposer Account Address", "account_address", accountAddress.String())
 
-	return nil
+    // Send rewards
+    err2 := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, "blockrewards", accountAddress, rewardAmount)
+    if err2 != nil {
+        sdkCtx.Logger().Error("Failed to send block rewards", "error", err2, "proposer", accountAddress.String(), "amount", rewardAmount.String())
+        return fmt.Errorf("failed to send block rewards: %w", err2)
+    }
+
+    sdkCtx.Logger().Info("Distributed block reward", "proposer", accountAddress.String(), "amount", rewardAmount.String())
+    return nil
 }
+

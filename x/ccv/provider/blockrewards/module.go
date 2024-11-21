@@ -1,6 +1,7 @@
 package blockrewards
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -8,6 +9,7 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cobra"
 
+	"cosmossdk.io/core/appmodule"
 	"cosmossdk.io/math"
 	keeper "github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/blockrewards/keeper"
 	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/blockrewards/types"
@@ -16,6 +18,8 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
+
+var _ appmodule.HasEndBlocker = AppModule{}
 
 // AppModuleBasic defines the basic application module used by the blockrewards module.
 type AppModuleBasic struct{}
@@ -102,22 +106,33 @@ func (AppModule) ConsensusVersion() uint64 { return 1 }
 func (am AppModule) BeginBlock(ctx sdk.Context, req abci.RequestFinalizeBlock) {}
 
 // EndBlock executes all logic for the blockrewards module at the end of a block.
-func (am AppModule) EndBlock(ctx sdk.Context, req abci.RequestFinalizeBlock) []abci.ValidatorUpdate {
-	ctx.Logger().Info("Entering EndBlock for blockrewards module")
-	EndBlocker(ctx, am.keeper)
-	return []abci.ValidatorUpdate{}
+func (am AppModule) EndBlock(ctx context.Context) error {
+	sdkCtx := sdk.UnwrapSDKContext(ctx)
+	sdkCtx.Logger().Info("Executing EndBlock for blockrewards module")
+	EndBlocker(sdkCtx, ctx, am.keeper)
+	return nil
 }
+// func (am AppModule) EndBlock(context Conte) (error) {
+// 	ctx.Logger().Info("Entering EndBlock for blockrewards module")
+// 	EndBlocker(ctx, am.keeper)
+// 	return nil
+// }
 // EndBlocker is the core logic for the blockrewards module at the end of each block.
-func EndBlocker(ctx sdk.Context, k keeper.Keeper) {
+func EndBlocker (sdkContext sdk.Context, ctx context.Context, k keeper.Keeper) {
 	// Define the block reward amount, e.g., 10000 stake
-	ctx.Logger().Info("Entering EndBlocker for blockrewards module")
+	
+	if sdkContext.TxBytes() == nil || len(sdkContext.TxBytes()) == 0 {
+        sdkContext.Logger().Info("Empty block detected, no transactions included.")
+        return // Skip rewards for empty blocks
+    }
 
+	// Alternatively, check transaction count (if using a block header)
 	newCoin := sdk.NewCoin("stake", math.NewInt(100000))
 	rewardAmount := sdk.NewCoins(newCoin)
 
 	// Call the reward distribution logic from the Keeper
-	err := k.DistributeRewards(ctx, rewardAmount)
+	err := k.DistributeRewards(sdkContext, ctx, rewardAmount)
 	if err != nil {
-		ctx.Logger().Error("Failed to distribute block rewards", "error", err)
+		sdkContext.Logger().Error("error in EndBlocker ", err.Error())
 	}
 }
