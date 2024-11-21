@@ -80,7 +80,7 @@ func (k Keeper) GetParams(ctx sdk.Context) (types.Params, error) {
     store := ctx.KVStore(k.storeKey)
     bz := store.Get([]byte("Params"))
     if bz == nil {
-        return types.Params{}, fmt.Errorf("Params not found")
+        return types.Params{}, fmt.Errorf("params not found")
     }
 
     var params types.Params
