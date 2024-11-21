@@ -189,3 +189,6 @@ _Note_
 "name": "blockrewards",
 "permissions": ["minter"]
 },
+
+**_Qeuery_**
+./build/interchain-security-pd query bank balances cosmos1kdsm4jzhnrck2ucykhrj8lhhayp3am3s6y6uzp

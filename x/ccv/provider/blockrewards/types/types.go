@@ -6,13 +6,20 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// ModuleName defines the name of the module
-const ModuleName = "blockrewards"
+// NewGenesisState creates a new genesis state with default values.
+func NewGenesisState() *GenesisState {
+	return &GenesisState{
+		Params: DefaultParams(),
+	}
+}
 
+// ModuleName defines the name of the module
 // DefaultGenesisState returns the default genesis state for the blockrewards module.
 func DefaultGenesisState() GenesisState {
     return GenesisState{
-        ModuleAccountBalance: sdk.NewCoins(sdk.NewCoin("stake", math.NewInt(0))),
+		Params: Params{
+			BlockRewardAmount:  sdk.NewCoin("stake", math.NewInt(100000)) ,
+		},
     }
 }
 
@@ -22,3 +29,4 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	//     (*sdk.Msg)(nil), // Register any Msg types here if needed
 	// )
 }
+

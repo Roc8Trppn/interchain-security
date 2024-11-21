@@ -130,13 +130,10 @@ func NewInMemProviderKeeper(params InMemKeeperParams, mocks MockedKeepers) provi
 		mocks.MockSlashingKeeper,
 		mocks.MockAccountKeeper,
 		mocks.MockDistributionKeeper,
-		mocks.MockBankKeeper,
 		// mocks.MockGovKeeper,
 		govkeeper.Keeper{}, // HACK: to make parts of the test work
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 		address.NewBech32Codec("cosmosvaloper"),
-		address.NewBech32Codec("cosmosvalcons"),
-		authtypes.FeeCollectorName,
 	)
 }
 
@@ -152,14 +149,12 @@ func NewInMemConsumerKeeper(params InMemKeeperParams, mocks MockedKeepers) consu
 		mocks.MockConnectionKeeper,
 		mocks.MockClientKeeper,
 		mocks.MockSlashingKeeper,
-		mocks.MockBankKeeper,
 		mocks.MockAccountKeeper,
 		mocks.MockIBCTransferKeeper,
 		mocks.MockIBCCoreKeeper,
 		authtypes.FeeCollectorName,
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 		address.NewBech32Codec("cosmosvaloper"),
-		address.NewBech32Codec("cosmosvalcons"),
 	)
 }
 

@@ -290,7 +290,10 @@ func New(
 		capabilitytypes.StoreKey,
 		providertypes.StoreKey,
 		consensusparamtypes.StoreKey,
+		blockrewardsmoduletypes.StoreKey,
 	)
+
+	// bApp.MountStore(keys[blockrewardsmoduletypes.StoreKey], storetypes.StoreTypeIAVL)
 
 	// register streaming services
 	if err := bApp.RegisterStreamingServices(appOpts, keys); err != nil {
@@ -527,8 +530,10 @@ func New(
 		scopedTransferKeeper,
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 	)
-
+	
 	app.BlockRewardsKeeper = blockrewardskeeper.NewKeeper(
+		appCodec,
+		keys[blockrewardsmoduletypes.StoreKey],
     	app.BankKeeper,
         *app.StakingKeeper,
     	app.AccountKeeper,
@@ -575,7 +580,7 @@ func New(
 		params.NewAppModule(app.ParamsKeeper),
 		transfer.NewAppModule(app.TransferKeeper),
 		providerModule,
-		blockrewardsmodule.NewAppModule(app.BlockRewardsKeeper),
+		blockrewardsmodule.NewAppModule(appCodec, app.BlockRewardsKeeper),
 
 	)
 
@@ -688,6 +693,7 @@ func New(
 		providertypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		crisistypes.ModuleName, // crisis needs to be last so that the genesis state is consistent when it checks invariants
+		blockrewardsmoduletypes.ModuleName,
 	)
 
 	app.MM.RegisterInvariants(&app.CrisisKeeper)
@@ -1086,6 +1092,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ibctransfertypes.ModuleName)
 	paramsKeeper.Subspace(ibcexported.ModuleName)
 	paramsKeeper.Subspace(providertypes.ModuleName)
+	paramsKeeper.Subspace(blockrewardsmoduletypes.ModuleName)
 
 	return paramsKeeper
 }

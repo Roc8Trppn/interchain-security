@@ -1,30 +1,40 @@
-package blockrewards
+package keeper
 
 import (
 	"context"
 	"encoding/hex"
 	"fmt"
 
+	storetypes "cosmossdk.io/store/types"
+
+	"github.com/Roc8Trppn/interchain-security/v6/x/ccv/provider/blockrewards/types"
+	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	accountKeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"    //
-	bankKeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"       // For bank operations
-	stakingKeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper" // For staking operations
+	accountKeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
+	bankKeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
+	stakingKeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 )
 
 // Keeper defines the blockrewards module's keeper
 type Keeper struct {
+    cdc           codec.BinaryCodec
+    storeKey      storetypes.StoreKey
     bankKeeper    bankKeeper.Keeper
     stakingKeeper stakingKeeper.Keeper
     accountKeeper accountKeeper.AccountKeeper
 }
 
 // NewKeeper creates a new blockrewards Keeper instance
-func NewKeeper(
-    bankKeeper bankKeeper.Keeper,
+func NewKeeper (
+    cdc           codec.BinaryCodec,
+    storeKey      storetypes.StoreKey,
+    bankKeeper    bankKeeper.Keeper,
     stakingKeeper stakingKeeper.Keeper,
     accountKeeper accountKeeper.AccountKeeper,
 ) Keeper {
     return Keeper{
+        cdc:           cdc,
+        storeKey:      storeKey,
         bankKeeper:    bankKeeper,
         stakingKeeper: stakingKeeper,
         accountKeeper: accountKeeper,
@@ -32,21 +42,18 @@ func NewKeeper(
 }
 
 func (k Keeper) DistributeRewards(sdkCtx sdk.Context, ctx context.Context, rewardAmount sdk.Coins) error {
-    sdkCtx.Logger().Info("Entering DistributeRewards")
-
     proposerAddress := sdkCtx.BlockHeader().ProposerAddress
     if len(proposerAddress) == 0 {
         sdkCtx.Logger().Error("Proposer address is empty")
         return fmt.Errorf("proposer address is empty")
     }
-    sdkCtx.Logger().Info("Proposer Address", "address", hex.EncodeToString(proposerAddress))
 
     proposerValidator, _ := k.stakingKeeper.ValidatorByConsAddr(ctx, sdk.ConsAddress(proposerAddress))
     if proposerValidator == nil {
         sdkCtx.Logger().Error("Validator not found", "proposer_address", hex.EncodeToString(proposerAddress))
         return fmt.Errorf("validator not found for proposer address")
     }
-    sdkCtx.Logger().Info("Validator found", "operator_address", proposerValidator.GetOperator())
+    // sdkCtx.Logger().Info("Validator found", "operator_address", proposerValidator.GetOperator())
 
     // Convert the validator operator address to an account address
     proposerAccAddress, err := sdk.ValAddressFromBech32(proposerValidator.GetOperator())
@@ -56,7 +63,7 @@ func (k Keeper) DistributeRewards(sdkCtx sdk.Context, ctx context.Context, rewar
     }
 
     accountAddress := sdk.AccAddress(proposerAccAddress)
-    sdkCtx.Logger().Info("Proposer Account Address", "account_address", accountAddress.String())
+    // sdkCtx.Logger().Info("Proposer Account Address", "account_address", accountAddress.String())
 
     // Send rewards
     err2 := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, "blockrewards", accountAddress, rewardAmount)
@@ -69,3 +76,28 @@ func (k Keeper) DistributeRewards(sdkCtx sdk.Context, ctx context.Context, rewar
     return nil
 }
 
+func (k Keeper) GetParams(ctx sdk.Context) (types.Params, error) {
+    store := ctx.KVStore(k.storeKey)
+    bz := store.Get([]byte("Params"))
+    if bz == nil {
+        return types.Params{}, fmt.Errorf("Params not found")
+    }
+
+    var params types.Params
+    if err := k.cdc.Unmarshal(bz, &params); err != nil {
+        return types.Params{}, fmt.Errorf("failed to unmarshal Params: %w", err)
+    }
+
+    return params, nil
+}
+
+func (k Keeper) SetParams(ctx sdk.Context, params types.Params) error {
+    store := ctx.KVStore(k.storeKey)
+    bz, err := k.cdc.Marshal(&params)
+    if err != nil {
+        return fmt.Errorf("failed to marshal Params: %w", err)
+    }
+
+    store.Set([]byte("Params"), bz)
+    return nil
+}

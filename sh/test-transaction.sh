@@ -8,7 +8,8 @@ RECEIVER="alm"
 
 AMOUNT="1000000000stake"
 CHAIN_ID="provider-chain"
-
+FEES="10stake"
+GAS="200000"
 SENDER_ADDRESS=$($BINARY keys show "$SENDER" -a)
 RECEIVER_ADDRESS=$($BINARY keys show "$RECEIVER" -a)
 
@@ -21,9 +22,9 @@ fi
 echo "sender address $SENDER_ADDRESS" 
 echo "reciever address $RECEIVER_ADDRESS" 
 
-# Automate the transaction //--fees "$FEES" --gas "$GAS"
+# Automate the transaction //
 echo "Sending $AMOUNT from $SENDER to $RECEIVER..."
-$BINARY tx bank send "$SENDER_ADDRESS" "$RECEIVER_ADDRESS" "$AMOUNT" --chain-id "$CHAIN_ID" -y
+$BINARY tx bank send "$SENDER_ADDRESS" "$RECEIVER_ADDRESS" "$AMOUNT" --fees "$FEES" --gas "$GAS" --chain-id "$CHAIN_ID" -y
 
 # Verify transaction submission
 if [ $? -eq 0 ]; then
