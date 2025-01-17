@@ -8,7 +8,7 @@ RECEIVER="alm"
 
 AMOUNT="1000000000stake"
 CHAIN_ID="provider-chain"
-FEES="10stake"
+FEES="5000stake"
 GAS="200000"
 SENDER_ADDRESS=$($BINARY keys show "$SENDER" -a)
 RECEIVER_ADDRESS=$($BINARY keys show "$RECEIVER" -a)

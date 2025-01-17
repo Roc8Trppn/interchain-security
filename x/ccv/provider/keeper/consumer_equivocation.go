@@ -241,7 +241,9 @@ func (k Keeper) GetByzantineValidators(ctx sdk.Context, misbehaviour ibctmtypes.
 	// meaning that the conflicting headers have both valid state transitions
 	// and different commit rounds. In this case, we return no validators as
 	// we can't identify the byzantine validators.
-	//
+	ctx.Logger().Info("LIGHTBLOCK HEADER 1: ", "header", *lightBlock1.Header)
+	ctx.Logger().Info("LIGHTBLOCK HEADER 2: ", "header", *lightBlock2.Header)
+
 	// Note that we cannot differentiate which of the headers is trusted or malicious,
 	if !headersStateTransitionsAreConflicting(*lightBlock1.Header, *lightBlock2.Header) && lightBlock1.Commit.Round != lightBlock2.Commit.Round {
 		return validators, nil

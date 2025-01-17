@@ -55,7 +55,7 @@ for account in "${GENESIS_ACCOUNTS[@]}"; do
   
   # Create the wallet (if it doesn't already exist)
   if ! $BINARY keys show "$wallet_name" &> /dev/null; then
-    $BINARY keys add "$wallet_name" --output json > /dev/null
+    $BINARY keys add "$wallet_name" --keyring-backend file --output json > /dev/null
     echo "Created wallet: $wallet_name"
   fi
   
@@ -77,7 +77,7 @@ for vesting_account in "${VESTING_ACCOUNTS[@]}"; do
 
   # Create the wallet (if it doesn't already exist)
   if ! $BINARY keys show "$wallet_name" &> /dev/null; then
-    $BINARY keys add "$wallet_name" --output json > /dev/null
+    $BINARY keys add "$wallet_name" --keyring-backend file --output json > /dev/null
     echo "Created wallet: $wallet_name"
   fi
 

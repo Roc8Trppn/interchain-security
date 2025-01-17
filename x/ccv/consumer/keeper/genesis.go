@@ -25,6 +25,7 @@ func (k Keeper) InitGenesis(ctx sdk.Context, state *types.GenesisState) []abci.V
 	// will take over proof of stake capabilities, but the standalone staking keeper will
 	// stick around for slashing/jailing purposes.
 	if state.PreCCV {
+		ctx.Logger().Info("IN PRECCV")
 		k.SetPreCCVTrue(ctx)
 		k.MarkAsPrevStandaloneChain(ctx)
 		k.SetInitialValSet(ctx, state.Provider.InitialValSet)
@@ -55,8 +56,10 @@ func (k Keeper) InitGenesis(ctx sdk.Context, state *types.GenesisState) []abci.V
 	// initialValSet is checked in NewChain case by ValidateGenesis
 	// start a new chain
 	if state.NewChain {
+
 		// create the provider client in InitGenesis for new consumer chain. CCV Handshake must be established with this client id.
 		clientID, err := k.clientKeeper.CreateClient(ctx, state.Provider.ClientState, state.Provider.ConsensusState)
+		ctx.Logger().Info("IN NEW CHAIN", "CLIENTID", clientID)
 		if err != nil {
 			// If the client creation fails, the chain MUST NOT start
 			panic(err)
@@ -107,7 +110,10 @@ func (k Keeper) InitGenesis(ctx sdk.Context, state *types.GenesisState) []abci.V
 	}
 
 	// populate cross chain validators states with initial valset
-	k.ApplyCCValidatorChanges(ctx, state.Provider.InitialValSet)
+
+	ret := k.ApplyCCValidatorChanges(ctx, state.Provider.InitialValSet)
+	ctx.Logger().Info("IN NEW CHAIN", "VALSET", ret)
+
 	return state.Provider.InitialValSet
 }
 

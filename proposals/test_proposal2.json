@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "@type": "/cosmos.gov.v1beta1.MsgSubmitProposal",
+      "content": {
+        "@type": "/cosmos.params.v1beta1.ParameterChangeProposal",
+        "title": "Increase Maximum Validators",
+        "description": "This proposal increases the maximum number of validators from the current value to 150.",
+        "changes": [
+          {
+            "subspace": "staking",
+            "key": "MaxValidators",
+            "value": "150"
+          }
+        ]
+      },
+      "initial_deposit": [
+        {
+          "denom": "stake",
+          "amount": "50000000"
+        }
+      ],
+      "proposer": "cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn"
+    }
+  ],
+  "metadata": "ipfs://CID",
+  "deposit": "10stake",
+  "title": "Increase Max Validators to 150",
+  "summary": "This proposal aims to increase the maximum number of validators from 100 to 150"
+}

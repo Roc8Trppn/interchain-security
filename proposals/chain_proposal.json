@@ -1,0 +1,22 @@
+{
+  "messages": [
+    {
+      "@type": "/interchain_security.ccv.provider.v1.MsgCreateConsumer",
+      "chain_id": "zone-chain",
+      "initial_height": {
+        "revision_number": "1",
+        "revision_height": "1"
+      },
+      "spawn_time": "2024-11-26T20:03:00.000000000-00:00",
+      "ccv_timeout_period": "1200s",
+      "unbonding_period": "600s",
+      "consumer_redistribution_fraction": "0.8",
+      "authority": "cosmos10d07y265gmmuvt4z0w9aw880jnsr700j6zn9kn"
+    }
+  ],
+  "metadata": "ipfs://CID",
+  "deposit": "50000000stake",
+  "title": "Create a chain",
+  "summary": "Gonna be a great chain",
+  "expedited": false
+}

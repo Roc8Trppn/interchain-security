@@ -8,28 +8,27 @@
 # - Exact days of lockup, vesting
 
 # Configuration
-GENESIS_PATH="$HOME/.interchain-security-p/config/genesis.json"
-BINARY="./build/interchain-security-pd"
-CHAIN_ID="provider-chain"
+GENESIS_PATH="$HOME/.interchain-security-c/config/genesis.json"
+BINARY="./build/interchain-security-cd"
+CHAIN_ID="zone_chain"
 TOKEN_DENOM="stake"
-TOTAL_SUPPLY="1000000000000000" 
 
 VALIDATOR_ACCOUNT=(
-  "validator:50000000000000:5000000000000"
+  "val:5000000000000:5000000000000"
 )             
 
 # Check if gensis file exist. Create if it doesn't exist.
-if [ ! -f "$GENESIS_PATH" ]; then
-  echo "Initializing node as genesis.json is missing..."
-  $BINARY init "hub-node" --chain-id "$CHAIN_ID"
-fi
+# if [ ! -f "$GENESIS_PATH" ]; then
+#   echo "Initializing node as genesis.json is missing..."
+#   $BINARY init "hub-node" --chain-id "$CHAIN_ID"
+# fi
 
 echo "Gensis.json exists or was successfully created..."
 
 # Function to get wallet address
 get_wallet_address() {
   local wallet_name=$1
-  $BINARY keys show "$wallet_name" -a
+  $BINARY keys show "$wallet_name" --keyring-backend file -a
 }
 
 # Add validator account

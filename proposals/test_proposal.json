@@ -1,0 +1,19 @@
+{
+  "messages": [
+    {
+      "@type": "/cosmos.params.v1beta1.ParameterChangeProposal",
+      "changes": [
+        {
+          "subspace": "staking",
+          "key": "MaxValidators",
+          "value": "150"
+        }
+      ]
+    }
+  ],
+
+  "metadata": "ipfs://CID",
+  "deposit": "10stake",
+  "title": "Increase Max Validators to 150",
+  "summary": "This proposal aims to increase the maximum number of validators from 100 to 150"
+}

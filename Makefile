@@ -191,9 +191,8 @@ mocks:
 BUILDDIR ?= $(CURDIR)/build
 
 build: $(BUILDDIR)/
-	go build -o $(BUILDDIR)/interchain-security-pd ./cmd/interchain-security-pd
-
-#go build -o $(BUILDDIR)/interchain-security-cd ./cmd/interchain-security-cd
+#	go build -o $(BUILDDIR)/interchain-security-pd ./cmd/interchain-security-pd
+	go build -o $(BUILDDIR)/interchain-security-cd ./cmd/interchain-security-cd
 #go build -o $(BUILDDIR)/interchain-security-cdd ./cmd/interchain-security-cdd
 #go build -o $(BUILDDIR)/interchain-security-sd ./cmd/interchain-security-sd
 

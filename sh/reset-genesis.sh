@@ -27,8 +27,8 @@ for account in "${ACCOUNTS[@]}"; do
 done
 
 # Backup the original genesis.json
-cp "$GENESIS_PATH" "${GENESIS_PATH}.bak"
+# cp "$GENESIS_PATH" "${GENESIS_PATH}.bak"
 
-jq '.app_state.auth.accounts = [] | .app_state.bank.balances = []' \
-  "$GENESIS_PATH" > tmp_genesis.json && mv tmp_genesis.json "$GENESIS_PATH"
+# jq '.app_state.auth.accounts = [] | .app_state.bank.balances = []' \
+#   "$GENESIS_PATH" > tmp_genesis.json && mv tmp_genesis.json "$GENESIS_PATH"
 

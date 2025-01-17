@@ -33,8 +33,14 @@ func (k Keeper) ApplyCCValidatorChanges(ctx sdk.Context, changes []abci.Validato
 			// received from the provider are invalid.
 			panic(err)
 		}
+		ctx.Logger().Info("PRINTING CHANGE: ", "change", change)
+
 		addr := pubkey.Address()
 		val, found := k.GetCCValidator(ctx, addr)
+
+		ctx.Logger().Info("PRINTING PUBKEY ADDRESS: ", "pubkey", addr)
+		ctx.Logger().Info("PRINTING CCVAL: ", "val", val)
+		ctx.Logger().Info("PRINTING CCVAL: ", "found", found)
 
 		if found {
 			// update or delete an existing validator
@@ -45,10 +51,15 @@ func (k Keeper) ApplyCCValidatorChanges(ctx sdk.Context, changes []abci.Validato
 				k.SetCCValidator(ctx, val)
 			}
 		} else if 0 < change.Power {
+
 			// create a new validator
 			consAddr := sdk.ConsAddress(addr)
+			ctx.Logger().Info("IN ELSE IF", "POWER", change.Power)
+			ctx.Logger().Info("CONSADDR", "ADDR", consAddr)
 
 			ccVal, err := types.NewCCValidator(addr, change.Power, pubkey)
+			ctx.Logger().Info("CCVAL", "ccVal", ccVal.Address)
+
 			if err != nil {
 				// An error here would indicate that the validator updates
 				// received from the provider are invalid.
@@ -66,6 +77,8 @@ func (k Keeper) ApplyCCValidatorChanges(ctx sdk.Context, changes []abci.Validato
 			// https://github.com/Roc8Trppn/interchain-security/issues/1569.
 			k.DeleteOutstandingDowntime(ctx, consAddr)
 		} else {
+			ctx.Logger().Info("IN EDGE CASE")
+
 			// edge case: we received an update for 0 power
 			// but the validator is already deleted. Do not forward
 			// to tendermint.

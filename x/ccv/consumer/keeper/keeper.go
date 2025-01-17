@@ -339,6 +339,7 @@ func (k Keeper) SetInitialValSet(ctx sdk.Context, initialValSet []tmtypes.Valida
 }
 
 func (k Keeper) GetInitialValSet(ctx sdk.Context) []tmtypes.ValidatorUpdate {
+	ctx.Logger().Info("IN HERE IN SETINITVALSET")
 	store := ctx.KVStore(k.storeKey)
 	initialValSet := types.GenesisState{}
 	bz := store.Get(types.InitialValSetKey())
@@ -471,6 +472,7 @@ func (k Keeper) GetAllOutstandingDowntimes(ctx sdk.Context) (downtimes []types.O
 func (k Keeper) SetCCValidator(ctx sdk.Context, v types.CrossChainValidator) {
 	store := ctx.KVStore(k.storeKey)
 	bz := k.cdc.MustMarshal(&v)
+	ctx.Logger().Info("SETTING CCV VALIDATOR", "bz", bz)
 
 	store.Set(types.CrossChainValidatorKey(v.Address), bz)
 }

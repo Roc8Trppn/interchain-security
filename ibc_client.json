@@ -1,0 +1,16 @@
+{
+  "@type": "/ibc.lightclients.tendermint.v1.ClientState",
+  "chain_id": "zone_chain",
+  "trusting_period": "1209600s",
+  "unbonding_period": "1814400s",
+  "max_clock_drift": "300s",
+  "frozen_height": null,
+  "latest_height": {
+    "revision_number": "1",
+    "revision_height": "1"
+  },
+  "proof_specs": [],
+  "upgrade_path": [],
+  "allow_update_after_expiry": false,
+  "allow_update_after_misbehaviour": false
+}
